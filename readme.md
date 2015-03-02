@@ -4,11 +4,7 @@ Biblioteca simples de integração com a API de Assinatura da Moip.
 
 #Instalação
 
-TODO
-
-#Usando
-
-TODO
+- Veja o manual de [intalação](https://github.com/andersao/moip-assinaturas-php/wiki/Instalação)
 
 #Documentação
 
