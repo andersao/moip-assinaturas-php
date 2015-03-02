@@ -12,5 +12,5 @@ TODO
 
 #Documentação
 
-[Wiki](https://github.com/andersao/moip-assinaturas-php/wiki)
-[Moip Assinaturas - Documentação Oficial](http://moiplabs.github.io/assinaturas-docs/index.html)
+- [Wiki](https://github.com/andersao/moip-assinaturas-php/wiki)
+- [Moip Assinaturas - Documentação Oficial](http://moiplabs.github.io/assinaturas-docs/index.html)
