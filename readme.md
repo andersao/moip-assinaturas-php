@@ -1,6 +1,6 @@
-#MoiP Assinaturas PHP
+#Prettus - Moip Assinaturas PHP
 
-Biblioteca simples de integração com a API de Assinatura da MoiP.
+Biblioteca simples de integração com a API de Assinatura da Moip.
 
 #Instalação
 
