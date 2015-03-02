@@ -1,5 +1,6 @@
 <?php namespace Prettus\Moip\Subscription\Resources;
 
+use GuzzleHttp\Exception\ClientException;
 use Prettus\Moip\Subscription\Contracts\MoipHttpClient;
 use Prettus\Moip\Subscription\ResourceUtils;
 
@@ -32,11 +33,12 @@ class Customers {
      * @param array $data
      * @param bool $new_vault
      * @param array $options
+     * @throws ClientException
      * @return \GuzzleHttp\Message\ResponseInterface
      */
     public function create(array $data, $new_vault = false, array $options = []){
 
-        $url = $this->urlInterpolate( self::BASE_PATH."?new_vault={new_vault}", [
+        $url = $this->interpolate( self::BASE_PATH."?new_vault={new_vault}", [
             'version'   => $this->client->getApiVersion(),
             'resource'  => self::RESOURCE,
             'new_vault' => $new_vault === true ? 'true' : 'false'
@@ -51,11 +53,12 @@ class Customers {
      * Listar todos os clientes
      *
      * @param array $options
+     * @throws ClientException
      * @return \GuzzleHttp\Message\ResponseInterface
      */
     public function all(array $options = []){
 
-        $url = $this->urlInterpolate( self::BASE_PATH, [
+        $url = $this->interpolate( self::BASE_PATH, [
             'version'   => $this->client->getApiVersion(),
             'resource'  => self::RESOURCE,
         ]);
@@ -68,11 +71,12 @@ class Customers {
      *
      * @param $code
      * @param array $options
+     * @throws ClientException
      * @return \GuzzleHttp\Message\ResponseInterface
      */
     public function find($code, array $options = []){
 
-        $url = $this->urlInterpolate( self::BASE_PATH."/{code}", [
+        $url = $this->interpolate( self::BASE_PATH."/{code}", [
             'version'   => $this->client->getApiVersion(),
             'resource'  => self::RESOURCE,
             'code'      => $code
@@ -87,11 +91,12 @@ class Customers {
      * @param $code
      * @param array $data
      * @param array $options
+     * @throws ClientException
      * @return \GuzzleHttp\Message\ResponseInterface
      */
     public function update($code, array $data, array $options = []){
 
-        $url = $this->urlInterpolate( self::BASE_PATH."/{code}", [
+        $url = $this->interpolate( self::BASE_PATH."/{code}", [
             'version'   => $this->client->getApiVersion(),
             'resource'  => self::RESOURCE,
             'code'      => $code
@@ -107,11 +112,12 @@ class Customers {
      * @param $code
      * @param array $data
      * @param array $options
+     * @throws ClientException
      * @return \GuzzleHttp\Message\ResponseInterface
      */
     public function updateBillingInfo($code, array $data, array $options = []){
 
-        $url = $this->urlInterpolate( self::BASE_PATH."/{code}/billing_infos", [
+        $url = $this->interpolate( self::BASE_PATH."/{code}/billing_infos", [
             'version'   => $this->client->getApiVersion(),
             'resource'  => self::RESOURCE,
             'code'      => $code

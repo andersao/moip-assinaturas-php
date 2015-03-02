@@ -1,5 +1,6 @@
 <?php namespace Prettus\Moip\Subscription\Resources;
 
+use GuzzleHttp\Exception\ClientException;
 use Prettus\Moip\Subscription\Contracts\MoipHttpClient;
 use Prettus\Moip\Subscription\ResourceUtils;
 
@@ -31,11 +32,12 @@ class Payments {
      *
      * @param $code
      * @param array $options
+     * @throws ClientException
      * @return \GuzzleHttp\Message\ResponseInterface
      */
     public function find($code, array $options = []){
 
-        $url = $this->urlInterpolate( self::BASE_PATH."/{code}", [
+        $url = $this->interpolate( self::BASE_PATH."/{code}", [
             'version'   => $this->client->getApiVersion(),
             'resource'  => self::RESOURCE,
             'code'      => $code

@@ -1,5 +1,6 @@
 <?php namespace Prettus\Moip\Subscription\Resources;
 
+use GuzzleHttp\Exception\ClientException;
 use Prettus\Moip\Subscription\Contracts\MoipHttpClient;
 use Prettus\Moip\Subscription\ResourceUtils;
 
@@ -33,7 +34,7 @@ class Subscriptions {
      */
     public function create(array $data, $new_customer = false, array $options = []){
 
-        $url = $this->urlInterpolate( self::BASE_PATH."?new_customer={new_customer}", [
+        $url = $this->interpolate( self::BASE_PATH."?new_customer={new_customer}", [
             'version'       => $this->client->getApiVersion(),
             'resource'      => self::RESOURCE,
             'new_customer'  => $new_customer === true ? 'true' : 'false'
@@ -48,11 +49,12 @@ class Subscriptions {
      * Listar todas assinaturas
      *
      * @param array $options
+     * @throws ClientException
      * @return \GuzzleHttp\Message\ResponseInterface
      */
     public function all(array $options = []){
 
-        $url = $this->urlInterpolate( self::BASE_PATH, [
+        $url = $this->interpolate( self::BASE_PATH, [
             'version'   => $this->client->getApiVersion(),
             'resource'  => self::RESOURCE,
         ]);
@@ -65,11 +67,12 @@ class Subscriptions {
      *
      * @param $code
      * @param array $options
+     * @throws ClientException
      * @return \GuzzleHttp\Message\ResponseInterface
      */
     public function find($code, array $options = []){
 
-        $url = $this->urlInterpolate( self::BASE_PATH."/{code}", [
+        $url = $this->interpolate( self::BASE_PATH."/{code}", [
             'version'   => $this->client->getApiVersion(),
             'resource'  => self::RESOURCE,
             'code'      => $code
@@ -84,11 +87,12 @@ class Subscriptions {
      * @param $code
      * @param array $data
      * @param array $options
+     * @throws ClientException
      * @return \GuzzleHttp\Message\ResponseInterface
      */
     public function update($code, array $data, array $options = []){
 
-        $url = $this->urlInterpolate( self::BASE_PATH."/{code}", [
+        $url = $this->interpolate( self::BASE_PATH."/{code}", [
             'version'   => $this->client->getApiVersion(),
             'resource'  => self::RESOURCE,
             'code'      => $code
@@ -105,11 +109,12 @@ class Subscriptions {
      *
      * @param $code
      * @param array $options
+     * @throws ClientException
      * @return \GuzzleHttp\Message\ResponseInterface
      */
     public function invoices($code, array $options = []){
 
-        $url = $this->urlInterpolate( self::BASE_PATH."/{code}/invoices", [
+        $url = $this->interpolate( self::BASE_PATH."/{code}/invoices", [
             'version'   => $this->client->getApiVersion(),
             'resource'  => self::RESOURCE,
             'code'      => $code
@@ -124,6 +129,7 @@ class Subscriptions {
      *
      * @param $code
      * @param array $options
+     * @throws ClientException
      * @return \GuzzleHttp\Message\ResponseInterface
      */
     public function suspend($code, array $options = []){
@@ -135,6 +141,7 @@ class Subscriptions {
      *
      * @param $code
      * @param array $options
+     * @throws ClientException
      * @return \GuzzleHttp\Message\ResponseInterface
      */
     public function activate($code, array $options = []){
@@ -146,6 +153,7 @@ class Subscriptions {
      *
      * @param $code
      * @param array $options
+     * @throws ClientException
      * @return \GuzzleHttp\Message\ResponseInterface
      */
     public function cancel($code, array $options = []){
@@ -158,11 +166,12 @@ class Subscriptions {
      * @param $code
      * @param $status [activate, inactivate]
      * @param array $options
+     * @throws ClientException
      * @return \GuzzleHttp\Message\ResponseInterface
      */
     protected function toogleStatus($code, $status, array $options = []){
 
-        $url = $this->urlInterpolate( self::BASE_PATH."/{code}/{status}", [
+        $url = $this->interpolate( self::BASE_PATH."/{code}/{status}", [
             'version'   => $this->client->getApiVersion(),
             'resource'  => self::RESOURCE,
             'code'      => $code,

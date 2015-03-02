@@ -7,16 +7,18 @@
 trait ResourceUtils {
 
     /**
-     * @param $url
+     * Compiles a string with markup into an interpolation
+     *
+     * @param $content
      * @param array $data
      * @return mixed
      */
-    protected function urlInterpolate($url, array $data = []){
+    protected function interpolate($content, array $data = []){
 
         foreach($data as $key=>$value){
-            $url = str_replace('{'.$key.'}', $value, $url);
+            $content = str_replace('{'.$key.'}', $value, $content);
         }
 
-        return $url;
+        return $content;
     }
 }

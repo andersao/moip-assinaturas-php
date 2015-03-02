@@ -1,5 +1,6 @@
 <?php namespace Prettus\Moip\Subscription\Resources;
 
+use GuzzleHttp\Exception\ClientException;
 use Prettus\Moip\Subscription\Contracts\MoipHttpClient;
 use Prettus\Moip\Subscription\ResourceUtils;
 
@@ -28,11 +29,12 @@ class Plans {
      *
      * @param array $data
      * @param array $options
+     * @throws ClientException
      * @return \GuzzleHttp\Message\ResponseInterface
      */
     public function create(array $data, array $options = []){
 
-        $url = $this->urlInterpolate( self::BASE_PATH, [
+        $url = $this->interpolate( self::BASE_PATH, [
             'version'   => $this->client->getApiVersion(),
             'resource'  => self::RESOURCE
         ]);
@@ -46,11 +48,12 @@ class Plans {
      * Listar todos os planos
      *
      * @param array $options
+     * @throws ClientException
      * @return \GuzzleHttp\Message\ResponseInterface
      */
     public function all(array $options = []){
 
-        $url = $this->urlInterpolate( self::BASE_PATH, [
+        $url = $this->interpolate( self::BASE_PATH, [
             'version'   => $this->client->getApiVersion(),
             'resource'  => self::RESOURCE,
         ]);
@@ -63,11 +66,12 @@ class Plans {
      *
      * @param $code
      * @param array $options
+     * @throws ClientException
      * @return \GuzzleHttp\Message\ResponseInterface
      */
     public function find($code, array $options = []){
 
-        $url = $this->urlInterpolate( self::BASE_PATH."/{code}", [
+        $url = $this->interpolate( self::BASE_PATH."/{code}", [
             'version'   => $this->client->getApiVersion(),
             'resource'  => self::RESOURCE,
             'code'      => $code
@@ -82,11 +86,12 @@ class Plans {
      * @param $code
      * @param array $data
      * @param array $options
+     * @throws ClientException
      * @return \GuzzleHttp\Message\ResponseInterface
      */
     public function update($code, array $data, array $options = []){
 
-        $url = $this->urlInterpolate( self::BASE_PATH."/{code}", [
+        $url = $this->interpolate( self::BASE_PATH."/{code}", [
             'version'   => $this->client->getApiVersion(),
             'resource'  => self::RESOURCE,
             'code'      => $code
@@ -103,6 +108,7 @@ class Plans {
      *
      * @param $code
      * @param array $options
+     * @throws ClientException
      * @return \GuzzleHttp\Message\ResponseInterface
      */
     public function active($code, array $options = []){
@@ -114,6 +120,7 @@ class Plans {
      *
      * @param $code
      * @param array $options
+     * @throws ClientException
      * @return \GuzzleHttp\Message\ResponseInterface
      */
     public function deactivate($code, array $options = []){
@@ -126,11 +133,12 @@ class Plans {
      * @param $code
      * @param $status [activate, inactivate]
      * @param array $options
+     * @throws ClientException
      * @return \GuzzleHttp\Message\ResponseInterface
      */
     protected function toogleActive($code, $status, array $options = []){
 
-        $url = $this->urlInterpolate( self::BASE_PATH."/{code}/{status}", [
+        $url = $this->interpolate( self::BASE_PATH."/{code}/{status}", [
             'version'   => $this->client->getApiVersion(),
             'resource'  => self::RESOURCE,
             'code'      => $code,

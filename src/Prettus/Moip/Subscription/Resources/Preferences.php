@@ -1,5 +1,6 @@
 <?php namespace Prettus\Moip\Subscription\Resources;
 
+use GuzzleHttp\Exception\ClientException;
 use Prettus\Moip\Subscription\Contracts\MoipHttpClient;
 use Prettus\Moip\Subscription\ResourceUtils;
 
@@ -28,11 +29,12 @@ class Preferences {
      *
      * @param array $data
      * @param array $options
+     * @throws ClientException
      * @return \GuzzleHttp\Message\ResponseInterface
      */
     public function setPreferences(array $data, array $options = []){
 
-        $url = $this->urlInterpolate( self::BASE_PATH, [
+        $url = $this->interpolate( self::BASE_PATH, [
             'version'   => $this->client->getApiVersion(),
             'resource'  => self::RESOURCE
         ]);
@@ -48,11 +50,12 @@ class Preferences {
      *
      * @param array $data
      * @param array $options
+     * @throws ClientException
      * @return \GuzzleHttp\Message\ResponseInterface
      */
     public function setPreferencesRetry(array $data, array $options = []){
 
-        $url = $this->urlInterpolate( self::BASE_PATH, [
+        $url = $this->interpolate( self::BASE_PATH, [
             'version'   => $this->client->getApiVersion(),
             'resource'  => self::RESOURCE
         ]);

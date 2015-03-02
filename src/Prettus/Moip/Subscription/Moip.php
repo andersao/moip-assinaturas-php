@@ -1,6 +1,7 @@
 <?php namespace Prettus\Moip\Subscription;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 use Prettus\Moip\Subscription\Contracts\MoipHttpClient;
 
 /**
@@ -18,32 +19,40 @@ class Moip implements MoipHttpClient {
     protected $client;
 
     /**
+     * Api Token
      *
      * @var string
      */
     protected $apiToken;
 
     /**
+     * Api Key
      * @var string
      */
     protected $apiKey;
 
     /**
-     * @var
+     * Ambiente da API
+     *
+     * @var string
      */
     protected $environment = self::SANDBOX;
 
     /**
-     * @var
+     * Versão da API
+     *
+     * @var string
      */
     protected $apiVersion  = "v1";
 
     /**
-     * @var
+     * Url da API
+     * @var string
      */
     protected $apiUrl   = "https://{environment}.moip.com.br";
 
     /**
+     * Moip
      *
      * @param $apiToken
      * @param $apiKey
@@ -67,6 +76,8 @@ class Moip implements MoipHttpClient {
     }
 
     /**
+     * Define as credenciais de acesso a API
+     *
      * @param array $credentials
      * @return $this
      */
@@ -77,6 +88,8 @@ class Moip implements MoipHttpClient {
     }
 
     /**
+     * Define o ambiente a ser utilizado
+     *
      * @param $environment
      * @return $this
      */
@@ -86,6 +99,8 @@ class Moip implements MoipHttpClient {
     }
 
     /**
+     * Retorna uma intância do Client Http
+     *
      * @return Client
      */
     public function getClient(){
@@ -93,6 +108,8 @@ class Moip implements MoipHttpClient {
     }
 
     /**
+     * Retorna a versão da API
+     *
      * @return string
      */
     public function getApiVersion(){
@@ -100,8 +117,11 @@ class Moip implements MoipHttpClient {
     }
 
     /**
+     * Executa uma requisição do tipo GET
+     *
      * @param null $url
      * @param array $options
+     * @throws ClientException
      * @return mixed
      */
     public function get($url = null, $options = [])
@@ -110,8 +130,11 @@ class Moip implements MoipHttpClient {
     }
 
     /**
+     * Executa uma requisição do tipo POST
+     *
      * @param null $url
      * @param array $options
+     * @throws ClientException
      * @return mixed
      */
     public function post($url = null, $options = [])
@@ -120,8 +143,11 @@ class Moip implements MoipHttpClient {
     }
 
     /**
+     * Executa uma requisição do tipo PUT
+     *
      * @param null $url
      * @param array $options
+     * @throws ClientException
      * @return mixed
      */
     public function put($url = null, $options = [])
@@ -130,8 +156,11 @@ class Moip implements MoipHttpClient {
     }
 
     /**
+     * Executa uma requisição do tipo DELETE
+     *
      * @param null $url
      * @param array $options
+     * @throws ClientException
      * @return mixed
      */
     public function delete($url = null, $options = [])
