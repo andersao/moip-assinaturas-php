@@ -9,6 +9,9 @@ use GuzzleHttp\Message\ResponseInterface;
  */
 interface MoipHttpClient {
 
+    const PRODUCTION = "api";
+    const SANDBOX    = "sandbox";
+
     /**
      * Retorna a versão da API
      *

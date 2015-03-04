@@ -2,16 +2,14 @@
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Message\ResponseInterface;
 use Prettus\Moip\Subscription\Contracts\MoipHttpClient;
 
 /**
- * Class Moip
+ * Class MoipClient
  * @package Prettus\Moip\Subscription
  */
-class Moip implements MoipHttpClient {
-
-    const PRODUCTION = "api";
-    const SANDBOX    = "sandbox";
+class MoipClient implements MoipHttpClient {
 
     /**
      * @var Client
@@ -36,7 +34,7 @@ class Moip implements MoipHttpClient {
      *
      * @var string
      */
-    protected $environment = self::SANDBOX;
+    protected $environment = MoipHttpClient::SANDBOX;
 
     /**
      * Versão da API
@@ -58,7 +56,7 @@ class Moip implements MoipHttpClient {
      * @param $apiKey
      * @param string $environment
      */
-    public function __construct( $apiToken, $apiKey, $environment = self::SANDBOX ){
+    public function __construct( $apiToken, $apiKey, $environment = MoipHttpClient::PRODUCTION ){
 
         $this->setCredential(['token'=>$apiToken,'key'=>$apiKey]);
         $this->setEnvironment($environment);
@@ -126,7 +124,8 @@ class Moip implements MoipHttpClient {
      */
     public function get($url = null, $options = [])
     {
-        return $this->client->get($url, $options);
+        $response = $this->client->get($url, $options);
+        return $this->parserResponseToArray($response);
     }
 
     /**
@@ -139,7 +138,8 @@ class Moip implements MoipHttpClient {
      */
     public function post($url = null, $options = [])
     {
-        return $this->client->post($url, $options);
+        $response = $this->client->post($url, $options);
+        return $this->parserResponseToArray($response);
     }
 
     /**
@@ -152,7 +152,8 @@ class Moip implements MoipHttpClient {
      */
     public function put($url = null, $options = [])
     {
-        return $this->client->put($url, $options);
+        $response = $this->client->put($url, $options);
+        return $this->parserResponseToArray($response);
     }
 
     /**
@@ -165,6 +166,16 @@ class Moip implements MoipHttpClient {
      */
     public function delete($url = null, $options = [])
     {
-        return $this->client->delete($url, $options);
+        $response = $this->client->delete($url, $options);
+        return $this->parserResponseToArray($response);
+    }
+
+    /**
+     *
+     * @param ResponseInterface $response
+     * @return array
+     */
+    protected function parserResponseToArray(ResponseInterface $response){
+        return $response->json();
     }
 }
