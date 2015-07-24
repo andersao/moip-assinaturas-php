@@ -60,9 +60,9 @@ class MoipClient implements MoipHttpClient {
 
         $this->setCredential(['token'=>$apiToken,'key'=>$apiKey]);
         $this->setEnvironment($environment);
-
+        $base_uri = str_replace('{environment}',$this->environment, $this->apiUrl);
         $this->client       = new Client([
-            'base_url' => [$this->apiUrl, ['environment' => $this->environment]],
+            'base_uri' => $base_uri,
             'defaults' => [
                 'headers' => [
                     'Accept'        => 'application/json',
