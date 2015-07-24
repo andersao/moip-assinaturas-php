@@ -1,7 +1,8 @@
 <?php namespace Prettus\Moip\Subscription\Contracts;
+
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Message\ResponseInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Interface MoipHttpClient
@@ -32,7 +33,7 @@ interface MoipHttpClient {
      * @param null $url
      * @param array $options
      * @throws ClientException
-     * @return mixed
+     * @return ResponseInterface
      */
     public function get($url = null, $options = []);
 
@@ -42,7 +43,7 @@ interface MoipHttpClient {
      * @param null $url
      * @param array $options
      * @throws ClientException
-     * @return mixed
+     * @return ResponseInterface
      */
     public function post($url = null, $options = []);
 
@@ -52,7 +53,7 @@ interface MoipHttpClient {
      * @param null $url
      * @param array $options
      * @throws ClientException
-     * @return mixed
+     * @return ResponseInterface
      */
     public function put($url = null, $options = []);
 
@@ -62,7 +63,7 @@ interface MoipHttpClient {
      * @param null $url
      * @param array $options
      * @throws ClientException
-     * @return mixed
+     * @return ResponseInterface
      */
     public function delete($url = null, $options = []);
 

@@ -3,6 +3,7 @@
 use GuzzleHttp\Exception\ClientException;
 use Prettus\Moip\Subscription\Contracts\MoipHttpClient;
 use Prettus\Moip\Subscription\ResourceUtils;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class Plans
@@ -30,7 +31,7 @@ class Plans {
      * @param array $data
      * @param array $options
      * @throws ClientException
-     * @return \GuzzleHttp\Message\ResponseInterface
+     * @return ResponseInterface
      */
     public function create(array $data, array $options = []){
 
@@ -49,7 +50,7 @@ class Plans {
      *
      * @param array $options
      * @throws ClientException
-     * @return \GuzzleHttp\Message\ResponseInterface
+     * @return ResponseInterface
      */
     public function all(array $options = []){
 
@@ -67,7 +68,7 @@ class Plans {
      * @param $code
      * @param array $options
      * @throws ClientException
-     * @return \GuzzleHttp\Message\ResponseInterface
+     * @return ResponseInterface
      */
     public function find($code, array $options = []){
 
@@ -87,7 +88,7 @@ class Plans {
      * @param array $data
      * @param array $options
      * @throws ClientException
-     * @return \GuzzleHttp\Message\ResponseInterface
+     * @return ResponseInterface
      */
     public function update($code, array $data, array $options = []){
 
@@ -109,7 +110,7 @@ class Plans {
      * @param $code
      * @param array $options
      * @throws ClientException
-     * @return \GuzzleHttp\Message\ResponseInterface
+     * @return ResponseInterface
      */
     public function active($code, array $options = []){
         return $this->toogleActive($code, "activate", $options);
@@ -121,7 +122,7 @@ class Plans {
      * @param $code
      * @param array $options
      * @throws ClientException
-     * @return \GuzzleHttp\Message\ResponseInterface
+     * @return ResponseInterface
      */
     public function deactivate($code, array $options = []){
         return $this->toogleActive($code, "inactivate", $options);
@@ -134,7 +135,7 @@ class Plans {
      * @param $status [activate, inactivate]
      * @param array $options
      * @throws ClientException
-     * @return \GuzzleHttp\Message\ResponseInterface
+     * @return ResponseInterface
      */
     protected function toogleActive($code, $status, array $options = []){
 

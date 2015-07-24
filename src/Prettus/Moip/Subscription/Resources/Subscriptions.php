@@ -3,6 +3,7 @@
 use GuzzleHttp\Exception\ClientException;
 use Prettus\Moip\Subscription\Contracts\MoipHttpClient;
 use Prettus\Moip\Subscription\ResourceUtils;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class Subscriptions
@@ -30,7 +31,7 @@ class Subscriptions {
      * @param array $data
      * @param bool $new_customer
      * @param array $options
-     * @return \GuzzleHttp\Message\ResponseInterface
+     * @return ResponseInterface
      */
     public function create(array $data, $new_customer = false, array $options = []){
 
@@ -50,7 +51,7 @@ class Subscriptions {
      *
      * @param array $options
      * @throws ClientException
-     * @return \GuzzleHttp\Message\ResponseInterface
+     * @return ResponseInterface
      */
     public function all(array $options = []){
 
@@ -68,7 +69,7 @@ class Subscriptions {
      * @param $code
      * @param array $options
      * @throws ClientException
-     * @return \GuzzleHttp\Message\ResponseInterface
+     * @return ResponseInterface
      */
     public function find($code, array $options = []){
 
@@ -88,7 +89,7 @@ class Subscriptions {
      * @param array $data
      * @param array $options
      * @throws ClientException
-     * @return \GuzzleHttp\Message\ResponseInterface
+     * @return ResponseInterface
      */
     public function update($code, array $data, array $options = []){
 
@@ -110,7 +111,7 @@ class Subscriptions {
      * @param $code
      * @param array $options
      * @throws ClientException
-     * @return \GuzzleHttp\Message\ResponseInterface
+     * @return ResponseInterface
      */
     public function invoices($code, array $options = []){
 
@@ -130,7 +131,7 @@ class Subscriptions {
      * @param $code
      * @param array $options
      * @throws ClientException
-     * @return \GuzzleHttp\Message\ResponseInterface
+     * @return ResponseInterface
      */
     public function suspend($code, array $options = []){
         return $this->toogleStatus($code, "suspend", $options);
@@ -142,7 +143,7 @@ class Subscriptions {
      * @param $code
      * @param array $options
      * @throws ClientException
-     * @return \GuzzleHttp\Message\ResponseInterface
+     * @return ResponseInterface
      */
     public function activate($code, array $options = []){
         return $this->toogleStatus($code, "activate", $options);
@@ -154,7 +155,7 @@ class Subscriptions {
      * @param $code
      * @param array $options
      * @throws ClientException
-     * @return \GuzzleHttp\Message\ResponseInterface
+     * @return ResponseInterface
      */
     public function cancel($code, array $options = []){
         return $this->toogleStatus($code, "cancel", $options);
@@ -167,7 +168,7 @@ class Subscriptions {
      * @param $status [activate, inactivate]
      * @param array $options
      * @throws ClientException
-     * @return \GuzzleHttp\Message\ResponseInterface
+     * @return ResponseInterface
      */
     protected function toogleStatus($code, $status, array $options = []){
 

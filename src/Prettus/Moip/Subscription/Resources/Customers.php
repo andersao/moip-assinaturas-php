@@ -3,6 +3,7 @@
 use GuzzleHttp\Exception\ClientException;
 use Prettus\Moip\Subscription\Contracts\MoipHttpClient;
 use Prettus\Moip\Subscription\ResourceUtils;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class Customers
@@ -34,7 +35,7 @@ class Customers {
      * @param bool $new_vault
      * @param array $options
      * @throws ClientException
-     * @return \GuzzleHttp\Message\ResponseInterface
+     * @return ResponseInterface
      */
     public function create(array $data, $new_vault = false, array $options = []){
 
@@ -54,7 +55,7 @@ class Customers {
      *
      * @param array $options
      * @throws ClientException
-     * @return \GuzzleHttp\Message\ResponseInterface
+     * @return ResponseInterface
      */
     public function all(array $options = []){
 
@@ -72,7 +73,7 @@ class Customers {
      * @param $code
      * @param array $options
      * @throws ClientException
-     * @return \GuzzleHttp\Message\ResponseInterface
+     * @return ResponseInterface
      */
     public function find($code, array $options = []){
 
@@ -92,7 +93,7 @@ class Customers {
      * @param array $data
      * @param array $options
      * @throws ClientException
-     * @return \GuzzleHttp\Message\ResponseInterface
+     * @return ResponseInterface
      */
     public function update($code, array $data, array $options = []){
 
@@ -113,7 +114,7 @@ class Customers {
      * @param array $data
      * @param array $options
      * @throws ClientException
-     * @return \GuzzleHttp\Message\ResponseInterface
+     * @return ResponseInterface
      */
     public function updateBillingInfo($code, array $data, array $options = []){
 

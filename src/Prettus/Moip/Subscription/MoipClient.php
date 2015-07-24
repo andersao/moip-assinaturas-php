@@ -2,7 +2,7 @@
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Message\ResponseInterface;
+use Psr\Http\Message\ResponseInterface;
 use Prettus\Moip\Subscription\Contracts\MoipHttpClient;
 
 /**
@@ -49,6 +49,8 @@ class MoipClient implements MoipHttpClient {
      */
     protected $apiUrl   = "https://{environment}.moip.com.br";
 
+    protected $requestOptions = [];
+
     /**
      * Moip
      *
@@ -60,17 +62,17 @@ class MoipClient implements MoipHttpClient {
 
         $this->setCredential(['token'=>$apiToken,'key'=>$apiKey]);
         $this->setEnvironment($environment);
+
         $base_uri = str_replace('{environment}',$this->environment, $this->apiUrl);
-        $this->client       = new Client([
-            'base_uri' => $base_uri,
-            'defaults' => [
-                'headers' => [
-                    'Accept'        => 'application/json',
-                    'Content-Type'  => 'application/json',
-                    'Authorization' => 'Basic '.base64_encode("{$this->apiToken}:{$this->apiKey}")
-                ]
+        $this->client  = new Client(['base_uri' => $base_uri]);
+
+        $this->requestOptions = [
+            'headers' => [
+                'Accept'        => 'application/json',
+                'Content-Type'  => 'application/json',
+                'Authorization' => 'Basic '.base64_encode("{$this->apiToken}:{$this->apiKey}")
             ]
-        ]);
+        ];
     }
 
     /**
@@ -124,7 +126,7 @@ class MoipClient implements MoipHttpClient {
      */
     public function get($url = null, $options = [])
     {
-        $response = $this->client->get($url, $options);
+        $response = $this->client->get($url, $this->getOptions($options));
         return $this->parserResponseToArray($response);
     }
 
@@ -138,7 +140,7 @@ class MoipClient implements MoipHttpClient {
      */
     public function post($url = null, $options = [])
     {
-        $response = $this->client->post($url, $options);
+        $response = $this->client->post($url, $this->getOptions($options));
         return $this->parserResponseToArray($response);
     }
 
@@ -152,7 +154,7 @@ class MoipClient implements MoipHttpClient {
      */
     public function put($url = null, $options = [])
     {
-        $response = $this->client->put($url, $options);
+        $response = $this->client->put($url, $this->getOptions($options) );
         return $this->parserResponseToArray($response);
     }
 
@@ -166,8 +168,16 @@ class MoipClient implements MoipHttpClient {
      */
     public function delete($url = null, $options = [])
     {
-        $response = $this->client->delete($url, $options);
+        $response = $this->client->delete($url, $this->getOptions($options));
         return $this->parserResponseToArray($response);
+    }
+
+    /**
+     * @param array $options
+     * @return array
+     */
+    public function getOptions($options = []){
+        return array_merge($this->requestOptions, $options);
     }
 
     /**
@@ -176,6 +186,6 @@ class MoipClient implements MoipHttpClient {
      * @return array
      */
     protected function parserResponseToArray(ResponseInterface $response){
-        return $response->json();
+        return $response->getBody();
     }
 }
