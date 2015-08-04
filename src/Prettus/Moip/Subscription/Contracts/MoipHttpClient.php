@@ -33,7 +33,7 @@ interface MoipHttpClient {
      * @param null $url
      * @param array $options
      * @throws ClientException
-     * @return ResponseInterface
+     * @return string
      */
     public function get($url = null, $options = []);
 
@@ -43,7 +43,7 @@ interface MoipHttpClient {
      * @param null $url
      * @param array $options
      * @throws ClientException
-     * @return ResponseInterface
+     * @return string
      */
     public function post($url = null, $options = []);
 
@@ -53,7 +53,7 @@ interface MoipHttpClient {
      * @param null $url
      * @param array $options
      * @throws ClientException
-     * @return ResponseInterface
+     * @return string
      */
     public function put($url = null, $options = []);
 
@@ -63,7 +63,7 @@ interface MoipHttpClient {
      * @param null $url
      * @param array $options
      * @throws ClientException
-     * @return ResponseInterface
+     * @return string
      */
     public function delete($url = null, $options = []);
 

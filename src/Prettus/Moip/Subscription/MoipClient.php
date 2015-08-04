@@ -122,12 +122,12 @@ class MoipClient implements MoipHttpClient {
      * @param null $url
      * @param array $options
      * @throws ClientException
-     * @return mixed
+     * @return string
      */
     public function get($url = null, $options = [])
     {
         $response = $this->client->get($url, $this->getOptions($options));
-        return $this->parserResponseToArray($response);
+        return $response->getBody()->getContents();
     }
 
     /**
@@ -136,12 +136,12 @@ class MoipClient implements MoipHttpClient {
      * @param null $url
      * @param array $options
      * @throws ClientException
-     * @return mixed
+     * @return string
      */
     public function post($url = null, $options = [])
     {
         $response = $this->client->post($url, $this->getOptions($options));
-        return $this->parserResponseToArray($response);
+        return $response->getBody()->getContents();
     }
 
     /**
@@ -150,12 +150,12 @@ class MoipClient implements MoipHttpClient {
      * @param null $url
      * @param array $options
      * @throws ClientException
-     * @return mixed
+     * @return string
      */
     public function put($url = null, $options = [])
     {
         $response = $this->client->put($url, $this->getOptions($options) );
-        return $this->parserResponseToArray($response);
+        return $response->getBody()->getContents();
     }
 
     /**
@@ -164,12 +164,12 @@ class MoipClient implements MoipHttpClient {
      * @param null $url
      * @param array $options
      * @throws ClientException
-     * @return mixed
+     * @return string
      */
     public function delete($url = null, $options = [])
     {
         $response = $this->client->delete($url, $this->getOptions($options));
-        return $this->parserResponseToArray($response);
+        return $response->getBody()->getContents();
     }
 
     /**
@@ -178,14 +178,5 @@ class MoipClient implements MoipHttpClient {
      */
     public function getOptions($options = []){
         return array_merge($this->requestOptions, $options);
-    }
-
-    /**
-     *
-     * @param ResponseInterface $response
-     * @return array
-     */
-    protected function parserResponseToArray(ResponseInterface $response){
-        return $response->getBody();
     }
 }
