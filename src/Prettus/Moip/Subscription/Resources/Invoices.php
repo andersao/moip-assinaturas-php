@@ -3,7 +3,6 @@
 use GuzzleHttp\Exception\ClientException;
 use Prettus\Moip\Subscription\Contracts\MoipHttpClient;
 use Prettus\Moip\Subscription\ResourceUtils;
-use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class Invoices
@@ -31,7 +30,7 @@ class Invoices {
      * @param $code
      * @param array $options
      * @throws ClientException
-     * @return ResponseInterface
+     * @return mixed
      */
     public function find($code, array $options = []){
 
@@ -50,7 +49,7 @@ class Invoices {
      * @param $code
      * @param array $options
      * @throws ClientException
-     * @return ResponseInterface
+     * @return mixed
      */
     public function payments($code, array $options = []){
 
@@ -70,7 +69,7 @@ class Invoices {
      * @param $code
      * @param array $options
      * @throws ClientException
-     * @return ResponseInterface
+     * @return mixed
      */
     public function retryPayment($code, array $options = []){
 

@@ -35,7 +35,7 @@ class Customers {
      * @param bool $new_vault
      * @param array $options
      * @throws ClientException
-     * @return ResponseInterface
+     * @return mixed
      */
     public function create(array $data, $new_vault = false, array $options = []){
 
@@ -55,7 +55,7 @@ class Customers {
      *
      * @param array $options
      * @throws ClientException
-     * @return ResponseInterface
+     * @return mixed
      */
     public function all(array $options = []){
 
@@ -73,7 +73,7 @@ class Customers {
      * @param $code
      * @param array $options
      * @throws ClientException
-     * @return ResponseInterface
+     * @return mixed
      */
     public function find($code, array $options = []){
 
@@ -93,7 +93,7 @@ class Customers {
      * @param array $data
      * @param array $options
      * @throws ClientException
-     * @return ResponseInterface
+     * @return mixed
      */
     public function update($code, array $data, array $options = []){
 
@@ -114,7 +114,7 @@ class Customers {
      * @param array $data
      * @param array $options
      * @throws ClientException
-     * @return ResponseInterface
+     * @return mixed
      */
     public function updateBillingInfo($code, array $data, array $options = []){
 
