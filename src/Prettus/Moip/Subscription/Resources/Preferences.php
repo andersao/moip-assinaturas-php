@@ -3,7 +3,6 @@
 use GuzzleHttp\Exception\ClientException;
 use Prettus\Moip\Subscription\Contracts\MoipHttpClient;
 use Prettus\Moip\Subscription\ResourceUtils;
-use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class Preferences
@@ -31,7 +30,7 @@ class Preferences {
      * @param array $data
      * @param array $options
      * @throws ClientException
-     * @return ResponseInterface
+     * @return mixed
      */
     public function setPreferences(array $data, array $options = []){
 
@@ -52,7 +51,7 @@ class Preferences {
      * @param array $data
      * @param array $options
      * @throws ClientException
-     * @return ResponseInterface
+     * @return mixed
      */
     public function setPreferencesRetry(array $data, array $options = []){
 
