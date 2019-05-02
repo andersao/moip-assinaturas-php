@@ -6,6 +6,8 @@ use Prettus\Moip\Subscription\Webservice\RenderToJson;
 use Prettus\Moip\Subscription\Webservice\ResourceUtils as Utils;
 use Prettus\Moip\Subscription\Webservice\Webservice;
 use Prettus\Moip\Subscription\Contracts\MoipHttpClient;
+use GuzzleHttp\Exception\RequestException;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class MoipClient
@@ -129,14 +131,23 @@ class MoipClient implements MoipHttpClient {
      *
      * @param null $url
      * @param array $options
+     *
      * @throws ClientException
-     * @return string
+     * @return array
      */
     public function get($url = null, $options = [])
     {
-        $response = $this->client->get($url, $this->getOptions($options));
+        try {
+            $response = $this->client->get($url, $this->getOptions($options));
 
-        return Utils::formatInJson( $response );
+            return Utils::formatInJson( $response );
+        } catch(RequestException $e) {
+            if ($e->hasResponse()) {
+                return $this->composeError($e->getResponse());
+            }
+
+            throw $e;
+        }
     }
 
     /**
@@ -144,14 +155,23 @@ class MoipClient implements MoipHttpClient {
      *
      * @param null $url
      * @param array $options
+     *
      * @throws ClientException
-     * @return string
+     * @return string|array
      */
     public function post($url = null, $options = [])
     {
-        $response = $this->client->post($url, $this->getOptions($options));
+        try {
+            $response = $this->client->post($url, $this->getOptions($options));
 
-        return $response->getBody()->getContents();
+            return $response->getBody()->getContents();
+        } catch(RequestException $e) {
+            if ($e->hasResponse()) {
+                return $this->composeError($e->getResponse());
+            }
+
+            throw $e;
+        }
     }
 
     /**
@@ -159,14 +179,23 @@ class MoipClient implements MoipHttpClient {
      *
      * @param null $url
      * @param array $options
+     *
      * @throws ClientException
-     * @return string
+     * @return string|array
      */
     public function put($url = null, $options = [])
     {
-        $response = $this->client->put($url, $this->getOptions($options) );
+        try {
+            $response = $this->client->put($url, $this->getOptions($options) );
 
-        return $response->getBody()->getContents();
+            return $response->getBody()->getContents();
+        } catch(RequestException $e) {
+            if ($e->hasResponse()) {
+                return $this->composeError($e->getResponse());
+            }
+
+            throw $e;
+        }
     }
 
     /**
@@ -174,14 +203,23 @@ class MoipClient implements MoipHttpClient {
      *
      * @param null $url
      * @param array $options
+     *
      * @throws ClientException
-     * @return string
+     * @return string|array
      */
     public function delete($url = null, $options = [])
     {
-        $response = $this->client->delete($url, $this->getOptions($options));
+        try {
+            $response = $this->client->delete($url, $this->getOptions($options));
 
-        return $response->getBody()->getContents();
+            return $response->getBody()->getContents();
+        } catch(RequestException $e) {
+            if ($e->hasResponse()) {
+                return $this->composeError($e->getResponse());
+            }
+
+            throw $e;
+        }
     }
 
     /**
@@ -190,5 +228,29 @@ class MoipClient implements MoipHttpClient {
      */
     public function getOptions($options = []){
         return array_merge($this->requestOptions, $options);
+    }
+
+    /**
+     * Monta um array contendo os erros da requisição
+     *
+     * @param ResponseInterface $response
+     *
+     * @return array
+     */
+    private function composeError(ResponseInterface $response)
+    {
+        $error = array(
+            'error' => true,
+            'http_code' => $response->getStatusCode(),
+            'http_reason' => $response->getReasonPhrase()
+        );
+
+        $message = Utils::formatInJson($response);
+
+        if ($message) {
+            $error = $error + $message;
+        }
+
+        return $error;
     }
 }
