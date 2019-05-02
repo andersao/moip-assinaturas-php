@@ -3,7 +3,6 @@
 use GuzzleHttp\Exception\ClientException;
 use Prettus\Moip\Subscription\Contracts\MoipHttpClient;
 use Prettus\Moip\Subscription\ResourceUtils;
-use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class Payments
@@ -34,7 +33,7 @@ class Payments {
      * @param $code
      * @param array $options
      * @throws ClientException
-     * @return ResponseInterface
+     * @return mixed
      */
     public function find($code, array $options = []){
 
@@ -46,5 +45,4 @@ class Payments {
 
         return $this->client->get($url, $options);
     }
-
 }
