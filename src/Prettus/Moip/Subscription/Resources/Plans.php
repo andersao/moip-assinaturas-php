@@ -3,7 +3,7 @@
 use GuzzleHttp\Exception\ClientException;
 use Prettus\Moip\Subscription\Contracts\MoipHttpClient;
 use Prettus\Moip\Subscription\ResourceUtils;
-use Psr\Http\Message\ResponseInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class Plans
@@ -31,7 +31,7 @@ class Plans {
      * @param array $data
      * @param array $options
      * @throws ClientException
-     * @return ResponseInterface
+     * @return mixed
      */
     public function create(array $data, array $options = []){
 
@@ -50,7 +50,7 @@ class Plans {
      *
      * @param array $options
      * @throws ClientException
-     * @return ResponseInterface
+     * @return mixed
      */
     public function all(array $options = []){
 
@@ -68,7 +68,7 @@ class Plans {
      * @param $code
      * @param array $options
      * @throws ClientException
-     * @return ResponseInterface
+     * @return mixed
      */
     public function find($code, array $options = []){
 
@@ -88,7 +88,7 @@ class Plans {
      * @param array $data
      * @param array $options
      * @throws ClientException
-     * @return ResponseInterface
+     * @return mixed
      */
     public function update($code, array $data, array $options = []){
 
@@ -110,7 +110,7 @@ class Plans {
      * @param $code
      * @param array $options
      * @throws ClientException
-     * @return ResponseInterface
+     * @return mixed
      */
     public function active($code, array $options = []){
         return $this->toogleActive($code, "activate", $options);
@@ -122,7 +122,7 @@ class Plans {
      * @param $code
      * @param array $options
      * @throws ClientException
-     * @return ResponseInterface
+     * @return mixed
      */
     public function deactivate($code, array $options = []){
         return $this->toogleActive($code, "inactivate", $options);
@@ -135,7 +135,7 @@ class Plans {
      * @param $status [activate, inactivate]
      * @param array $options
      * @throws ClientException
-     * @return ResponseInterface
+     * @return mixed
      */
     protected function toogleActive($code, $status, array $options = []){
 

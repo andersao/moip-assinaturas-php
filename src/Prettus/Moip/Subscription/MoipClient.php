@@ -2,7 +2,9 @@
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
-use Psr\Http\Message\ResponseInterface;
+use Prettus\Moip\Subscription\Webservice\RenderToJson;
+use Prettus\Moip\Subscription\Webservice\ResourceUtils as Utils;
+use Prettus\Moip\Subscription\Webservice\Webservice;
 use Prettus\Moip\Subscription\Contracts\MoipHttpClient;
 
 /**
@@ -10,6 +12,8 @@ use Prettus\Moip\Subscription\Contracts\MoipHttpClient;
  * @package Prettus\Moip\Subscription
  */
 class MoipClient implements MoipHttpClient {
+
+    use Utils;
 
     /**
      * @var Client
@@ -49,6 +53,9 @@ class MoipClient implements MoipHttpClient {
      */
     protected $apiUrl   = "https://{environment}.moip.com.br";
 
+    /**
+     * @var array
+     */
     protected $requestOptions = [];
 
     /**
@@ -58,7 +65,7 @@ class MoipClient implements MoipHttpClient {
      * @param $apiKey
      * @param string $environment
      */
-    public function __construct( $apiToken, $apiKey, $environment = MoipHttpClient::PRODUCTION ){
+    public function __construct( $apiToken, $apiKey, $environment = MoipHttpClient::PRODUCTION){
 
         $this->setCredential(['token'=>$apiToken,'key'=>$apiKey]);
         $this->setEnvironment($environment);
@@ -127,7 +134,7 @@ class MoipClient implements MoipHttpClient {
     public function get($url = null, $options = [])
     {
         $response = $this->client->get($url, $this->getOptions($options));
-        return $response->getBody()->getContents();
+        return Utils::formatInJson( $response );
     }
 
     /**
